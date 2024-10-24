@@ -26,18 +26,18 @@ services:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
-      - ./db_init:/docker-entrypoint-initdb.d/
 
   client:
     build:
-      context: ./client
-    container_name: client-container
+      context: /Users/stas/Projects/DevOpsHomework/client
+    container_name: client-container-1
     ports:
       - "5173:5173"
     depends_on:
       - app
+      - db
     volumes:
-      - ./client:/app
+      - /Users/stas/Projects/DevOpsHomework/client:/app
 
 volumes:
   postgres-data:

@@ -2,6 +2,8 @@ FROM node:18
 
 WORKDIR /app
 
+RUN rm -rf node_modules package-lock.json
+
 COPY package*.json ./
 
 RUN npm install
@@ -10,5 +12,4 @@ COPY . .
 
 EXPOSE 5173
 
-# Запускаем приложение
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]

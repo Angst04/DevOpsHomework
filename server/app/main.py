@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
 import psycopg2
@@ -13,10 +13,44 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+def create_table():
+    conn = psycopg2.connect(
+        host='db',
+        user='stas',
+        password='angst0437',
+        database='postgres'
+    )
+    cur = conn.cursor()
+
+    cur.execute("""CREATE TABLE IF NOT EXISTS students 
+        (id SERIAL PRIMARY KEY,
+        name VARCHAR(100), 
+        age INTEGER, 
+        major VARCHAR(50))
+    """)
+    
+    cur.execute("""INSERT INTO students (name, age, major) VALUES
+        ('Алиса', 20, 'Computer Science'),
+        ('Александр', 22, 'Mathematics'),
+        ('Виктория', 21, 'Physics'),
+        ('Диана', 23, 'Chemistry'),
+        ('Даша', 20, 'Biology');
+    """)
+    
+    conn.commit()
+    cur.close()
+    conn.close()
+    
+    print('Таблица создана')
+    
+@app.on_event("startup")
+def startup():
+    create_table()
+
 @app.get("/search")
 async def search(query: str):
     conn = psycopg2.connect(
-        host='localhost',
+        host='db',
         user='stas',
         password='angst0437',
         database='postgres'

@@ -28,5 +28,16 @@ services:
       - postgres-data:/var/lib/postgresql/data
       - ./db_init:/docker-entrypoint-initdb.d/
 
+  client:
+    build:
+      context: ./client
+    container_name: client-container
+    ports:
+      - "5173:5173"
+    depends_on:
+      - app
+    volumes:
+      - ./client:/app
+
 volumes:
   postgres-data:

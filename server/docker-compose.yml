@@ -1,11 +1,9 @@
-version: '3.8'
-
 services:
   app:
     build:
       context: .
-    container_name: server-container-1
-    command: uvicorn app.main:app --host 0.0.0.0 --port 80
+    container_name: server-container
+    command: ["/code/wait-for-it.sh", "db:5432", "--", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
     ports:
       - "80:80"
     depends_on:
@@ -30,12 +28,9 @@ services:
   client:
     build:
       context: /Users/stas/Projects/DevOpsHomework/client
-    container_name: client-container-1
+    container_name: client-container
     ports:
-      - "5173:5173"
-    depends_on:
-      - app
-      - db
+      - "3000:3000"
     volumes:
       - /Users/stas/Projects/DevOpsHomework/client:/app
 

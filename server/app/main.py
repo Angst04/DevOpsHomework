@@ -15,12 +15,15 @@ app.add_middleware(
 
 def create_table():
     conn = psycopg2.connect(
-        host='db',
+        host='localhost',
+        # host='db',
         user='stas',
         password='angst0437',
         database='postgres'
     )
     cur = conn.cursor()
+    
+    cur.execute("""DROP TABLE IF EXISTS students;""")
 
     cur.execute("""CREATE TABLE IF NOT EXISTS students 
         (id SERIAL PRIMARY KEY,
@@ -50,7 +53,8 @@ def startup():
 @app.get("/search")
 async def search(query: str):
     conn = psycopg2.connect(
-        host='db',
+        host='localhost',
+        # host='db',
         user='stas',
         password='angst0437',
         database='postgres'

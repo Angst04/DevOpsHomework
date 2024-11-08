@@ -1,17 +1,17 @@
 services:
   app:
     build:
-      context: .
+      context: /Users/stas/Projects/DevOpsHomework/server
     container_name: server-container
     command: ["/code/wait-for-it.sh", "db:5432", "--", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
     ports:
-      - "80:80"
+      - "8000:80"
     depends_on:
       - db
     environment:
       - DATABASE_URL=postgresql://stas:angst0437@db:5432/mydatabase
     volumes:
-      - ./app:/code/app
+      - /Users/stas/Projects/DevOpsHomework/server/app:/code/app
 
   db:
     image: postgres:13

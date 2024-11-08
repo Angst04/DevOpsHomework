@@ -10,7 +10,7 @@ function App() {
         setQuery(event.target.value);
         if (event.target.value) {
             try {
-                const response = await axios.get(`http://127.0.0.1:8000/search?query=${event.target.value}`);
+                const response = await axios.get(`http://localhost:8000/search?query=${event.target.value}`);
                 setResults(response.data);
                 console.log(response.data);
             } catch (error) {

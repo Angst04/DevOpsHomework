@@ -15,8 +15,8 @@ app.add_middleware(
 
 def create_table():
     conn = psycopg2.connect(
-        host='localhost',
-        # host='db',
+        # host='localhost',
+        host='db',
         user='stas',
         password='angst0437',
         database='postgres'
@@ -53,8 +53,8 @@ def startup():
 @app.get("/search")
 async def search(query: str):
     conn = psycopg2.connect(
-        host='localhost',
-        # host='db',
+        # host='localhost',
+        host='db',
         user='stas',
         password='angst0437',
         database='postgres'

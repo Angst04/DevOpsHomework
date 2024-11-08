@@ -1,7 +1,7 @@
 services:
   app:
     build:
-      context: /Users/stas/Projects/DevOpsHomework/server
+      context: ./server
     container_name: server-container
     command: ["/code/wait-for-it.sh", "db:5432", "--", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
     ports:
@@ -11,7 +11,7 @@ services:
     environment:
       - DATABASE_URL=postgresql://stas:angst0437@db:5432/mydatabase
     volumes:
-      - /Users/stas/Projects/DevOpsHomework/server/app:/code/app
+      - ./server/app:/code/app
 
   db:
     image: postgres:13
@@ -27,12 +27,12 @@ services:
 
   client:
     build:
-      context: /Users/stas/Projects/DevOpsHomework/client
+      context: ./client
     container_name: client-container
     ports:
       - "3000:3000"
     volumes:
-      - /Users/stas/Projects/DevOpsHomework/client:/app
+      - ./client:/app
 
 volumes:
   postgres-data:
